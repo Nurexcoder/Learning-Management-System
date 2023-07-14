@@ -1,52 +1,33 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose, Schema } from "mongoose";
 import { Password } from "../services/password";
 
-interface UserAttrs {
-  email: String;
-  password: string;
-}
-
-interface UserModel extends mongoose.Model<UserDoc> {
-  build(attrs: UserAttrs): UserDoc;
-}
-
-interface UserDoc extends mongoose.Document {
-  email: string;
-  password: string;
-}
-
-const userSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
-    email: {
-      type: String,
-      required: true,
-    },
+    email: { type: String, required: true },
+    name: { type: String, required: true },
     password: {
       type: String,
       required: true,
     },
-    name: {
-      type: String,
-      required: true,
+    role: {
+      type: Number,
+      default: 1,
     },
+    coursesEnrolled: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+    reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
   },
   {
     toJSON: {
       transform(doc, ret) {
-        (ret.id = ret._id), delete ret._id, delete ret.password, delete ret.__v;
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.password;
+        delete ret.__v;
+        ret.userType = ret.role == 0 ? "admin" : "user";
+        delete ret.role;
       },
     },
   }
 );
 
-userSchema.pre("save", async function (done) {
-  if (this.isModified("password")) {
-    const hashed = Password.toHash(this.get("password"));
-    this.set("password", hashed);
-  }
-});
-userSchema.statics.build = (attrs: UserAttrs) => {
-  return new User(attrs);
-};
-const User = mongoose.model<UserDoc, UserModel>("User", userSchema);
-export { User };
+export const UserModel = mongoose.model("User", UserSchema);

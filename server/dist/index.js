@@ -17,8 +17,27 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const body_parser_1 = require("body-parser");
 const signUp_1 = require("./routes/auth/signUp");
+// import swaggerJSDoc from "swagger-jsdoc";
+// import swaggerUi from "swagger-ui-express";
 dotenv_1.default.config();
 const app = (0, express_1.default)();
+// const options = {
+//   definition: {
+//     openapi: "3.0.1",
+//     info: {
+//       title: "REST API for Swagger Documentation",
+//       version: "1.0.0",
+//     },
+//     schemes: ["http", "https"],
+//     servers: [{ url: "http://localhost:5000/" }],
+//   },
+//   apis: [
+//     `${__dirname}/routes/example-route.ts`,
+//     "./dist/routes/example-route.js",
+//   ],
+// };
+// const swaggerSpec = swaggerJSDoc(options);
+// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use((0, body_parser_1.json)());
 app.use(signUp_1.SignupRouter);
 const port = process.env.PORT || 5000;
