@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
-import { UserModel } from "../../models/User";
+import { UserModel } from "../../models/User.model";
 const router = express.Router();
 
 router.post(
