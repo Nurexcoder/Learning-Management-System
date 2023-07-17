@@ -1,5 +1,19 @@
 import mongoose, { Mongoose, Schema } from "mongoose";
 
+export interface quizAnswer {
+  qid: number;
+  answer: string;
+}
+
+export interface IResult extends Document {
+  courseId: string;
+  examId: string;
+  givenBy: string;
+  fullMarks: number;
+  obtainedMarks:number;
+  quizAnswers: [quizAnswer];
+}
+
 const ResultSchema = new mongoose.Schema(
   {
     courseId: { type: Schema.Types.ObjectId, ref: "Course" },
@@ -12,7 +26,7 @@ const ResultSchema = new mongoose.Schema(
     obtainedMarks: {
       type: Number,
     },
-    quizContent: [
+    quizAnswers: [
       {
         qid: { type: Number, required: true },
         answer: {
@@ -31,4 +45,4 @@ const ResultSchema = new mongoose.Schema(
   }
 );
 
-export const ResultModel = mongoose.model("Result", ResultSchema);
+export const ResultModel = mongoose.model<IResult>("Result", ResultSchema);

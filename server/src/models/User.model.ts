@@ -1,6 +1,20 @@
 import mongoose, { Mongoose, Schema } from "mongoose";
 import { Password } from "../services/password";
 
+export enum roles {
+  admin,
+  user,
+}
+
+export interface IUser extends Document {
+  email: string;
+  name: string;
+  password: string;
+  role: roles;
+  coursesEnrolled: Array<string>;
+  reviews: Array<string>;
+}
+
 const UserSchema = new mongoose.Schema(
   {
     email: { type: String, required: true },
@@ -10,8 +24,9 @@ const UserSchema = new mongoose.Schema(
       required: true,
     },
     role: {
-      type: Number,
-      default: 1,
+      type: String,
+      enum: ["admin", "user"],
+      default: "user",
     },
     coursesEnrolled: [{ type: Schema.Types.ObjectId, ref: "Course" }],
     reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
@@ -23,7 +38,7 @@ const UserSchema = new mongoose.Schema(
         delete ret._id;
         delete ret.password;
         delete ret.__v;
-        ret.userType = ret.role == 0 ? "admin" : "user";
+        ret.userType = ret.role == "admin" ? "admin" : "user";
         delete ret.role;
       },
     },

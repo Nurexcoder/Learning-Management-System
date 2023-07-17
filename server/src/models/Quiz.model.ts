@@ -13,6 +13,7 @@ export interface Questions {
 export interface IQuiz extends Document {
   title: string;
   questions: Array<Questions>;
+  createdBy: string;
 }
 
 const quizSchema = new Schema(
@@ -36,6 +37,10 @@ const quizSchema = new Schema(
         },
       },
     ],
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
   {
     timestamps: true,

@@ -18,7 +18,7 @@ export interface chapter {
   contents: Array<content>;
 }
 
-export interface ICourse {
+export interface ICourse extends Document {
   title: string;
   chapters: Array<chapter>;
   createdBy: string;

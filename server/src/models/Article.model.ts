@@ -14,7 +14,7 @@ export interface article {
 
 export interface IArticle extends Document {
   title: string;
-  articles: Array<article>;
+  articles: [article];
   createdBy: string;
 }
 

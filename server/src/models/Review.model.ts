@@ -1,5 +1,12 @@
 import mongoose, { Mongoose, Schema } from "mongoose";
 
+export interface IReview extends Document {
+  courseId: string;
+  givenBy: string;
+  rating: number;
+  desc: string;
+}
+
 const ReviewSchema = new mongoose.Schema(
   {
     courseId: { type: Schema.Types.ObjectId, ref: "Course" },
