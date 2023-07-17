@@ -40,9 +40,9 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   }); 
 });
 
-app.all("*", async (req: Request, res: Response, next: NextFunction) => {
-  return next(new Error("Invalid route"));
-});
+// app.all("*", async (req: Request, res: Response, next: NextFunction) => {
+//   return next(new Error("Invalid route"));
+// });
 
 const initializeConfig = async () => {
   try {
