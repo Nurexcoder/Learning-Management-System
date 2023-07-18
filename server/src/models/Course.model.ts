@@ -30,6 +30,7 @@ const CourseSchema = new mongoose.Schema(
     chapters: [
       {
         chapterName: { type: String, require: true },
+        chapterId: { type: Number, required: true },
         contents: [
           {
             contentName: { type: String, required: true },

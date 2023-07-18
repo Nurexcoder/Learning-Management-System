@@ -10,9 +10,9 @@ export interface IUser extends Document {
   email: string;
   name: string;
   password: string;
-  role: roles;
-  coursesEnrolled: Array<string>;
-  reviews: Array<string>;
+  role?: roles;
+  coursesEnrolled: Array<Schema.Types.ObjectId>;
+  reviews: Array<Schema.Types.ObjectId>;
 }
 
 const UserSchema = new mongoose.Schema(
